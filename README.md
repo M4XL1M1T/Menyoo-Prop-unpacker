@@ -3,7 +3,7 @@
 Mit diesem Tool kannst du .rar-Dateien aus dem Ordner `propfiles` automatisch entpacken und alle `.ydr`-Dateien in eine Liste im XML-Format schreiben.
 
 ## Hinweis:
-Solltet ihr keine lust haben python zu installieren oder es nicht funktionieren sollte benutzt die unpackerlister.exe, beachtet aber weiterhin die ordner struktur :)
+Solltet ihr keine lust haben python zu installieren oder es nicht funktionieren sollte, benutzt die unpackerlister.exe. Beachtet aber weiterhin die ordner struktur :)
 
 ## Voraussetzungen
 - Windows-Betriebssystem
