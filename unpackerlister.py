@@ -19,7 +19,7 @@ def run_batch_and_process_files():
 				ydr_files.append(os.path.splitext(file)[0])
 	xml_template = '''<Item type="CBaseArchetypeDef">
 	  <lodDist value="500.00000000"/>
-	  <flags value="0"/>
+	  <flags value="32"/>
 	  <specialAttribute value="0"/>
 	  <bbMin x="0.00000000" y="0.00000000" z="0.00000000"/>
 	  <bbMax x="0.00000000" y="0.00000000" z="0.00000000"/>
@@ -48,4 +48,5 @@ def run_batch_and_process_files():
 
 if __name__ == "__main__":
 	run_batch_and_process_files()
+
 
