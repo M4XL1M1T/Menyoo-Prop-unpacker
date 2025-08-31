@@ -38,6 +38,12 @@ def run_batch_and_process_files():
 	with open(os.path.join(base_path, 'proplist.txt'), 'w', encoding='utf-8') as out:
 		for propname in ydr_files:
 			out.write(xml_template.format(propname=propname))
+	
+	# Schreibe die Namen im gewünschten Format in propfav.txt
+	propfav_path = os.path.join(base_path, 'propfav.txt')
+	with open(propfav_path, 'w', encoding='utf-8') as fav_out:
+		for propname in ydr_files:
+			fav_out.write(f'<PropModel modelName="{propname}" modelHash="" />\n')
 
 	for filename in os.listdir(base_path):
 		if filename.lower().endswith('.rar'):
@@ -48,5 +54,3 @@ def run_batch_and_process_files():
 
 if __name__ == "__main__":
 	run_batch_and_process_files()
-
-
