@@ -1,13 +1,24 @@
 import os
 import subprocess
+import sys
 
 def unpack_archives_and_generate_list():
 	folder = 'propfiles'
-	base_path = os.path.join(os.path.dirname(__file__), folder)
+	if getattr(sys, 'frozen', False):
+
+		script_dir = os.path.dirname(sys.executable)
+	else:
+		script_dir = os.path.dirname(os.path.abspath(__file__))
+	base_path = os.path.join(script_dir, folder)
 
 def run_batch_and_process_files():
 	folder = 'propfiles'
-	base_path = os.path.join(os.path.dirname(__file__), folder)
+	if getattr(sys, 'frozen', False):
+
+		script_dir = os.path.dirname(sys.executable)
+	else:
+		script_dir = os.path.dirname(os.path.abspath(__file__))
+	base_path = os.path.join(script_dir, folder)
 	bat_path = os.path.join(base_path, 'unpack_rar.bat')
 	subprocess.run([bat_path], cwd=base_path, shell=True)
 
@@ -38,8 +49,7 @@ def run_batch_and_process_files():
 	with open(os.path.join(base_path, 'proplist.txt'), 'w', encoding='utf-8') as out:
 		for propname in ydr_files:
 			out.write(xml_template.format(propname=propname))
-	
-	# Schreibe die Namen im gewünschten Format in propfav.txt
+
 	propfav_path = os.path.join(base_path, 'propfav.txt')
 	with open(propfav_path, 'w', encoding='utf-8') as fav_out:
 		for propname in ydr_files:
