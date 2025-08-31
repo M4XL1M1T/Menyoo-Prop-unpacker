@@ -5,6 +5,7 @@ Mit diesem Tool kannst du .rar-Dateien aus dem Ordner `propfiles` automatisch en
 ## Voraussetzungen
 - Windows-Betriebssystem
 - WinRAR installiert (für das Entpacken der .rar-Dateien)
+- Python > https://www.python.org/downloads/release/python-31211/
 
 ## Nutzung
 1. Lege alle .rar-Dateien, die du entpacken möchtest, in den Ordner `propfiles`.
