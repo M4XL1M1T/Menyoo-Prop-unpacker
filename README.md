@@ -1,40 +1,48 @@
-# Props Unpacker
+# 📦 Menyoo Prop Unpacker & Lister
 
-Mit diesem Tool kannst du .rar-Dateien aus dem Ordner `propfiles` automatisch entpacken und alle `.ydr`-Dateien in eine Liste im XML-Format schreiben.
+Ein kleines Python-Tool, das `.rar`-Archive im Ordner **`propfiles`** automatisch entpackt, `.ydr`-Dateien auflistet und daraus zwei Dateien generiert:
 
-## Hinweis:
-Solltet ihr keine lust haben python zu installieren oder es nicht funktionieren sollte, benutzt die unpackerlister.exe. Beachtet aber weiterhin die ordner struktur :)
+- **1_proplist.txt** → XML-Liste aller Props  
+- **2_propfav.txt** → Favoriten-Liste aller Props  
 
-## Voraussetzungen
-- Windows-Betriebssystem
-- WinRAR installiert (für das Entpacken der .rar-Dateien)
-- Solltet ihr noch kein Python installiert haben, müsst ihr den PC höchstwahrscheinlich neu starten und anschließend in der Eingabeaufforderung überprüfen, ob es installiert ist: python --version
-- Python > https://www.python.org/downloads/
-- Alternativ damit ihr kein python installieren müsst Nutzt diese Seite > https://v0-pytoexe.vercel.app/
+Optional kannst du entpackte Archive und Dateien nach Bestätigung automatisch löschen lassen.
 
+---
 
+## 🚀 Features
 
+- Entpackt alle `.rar`-Archive mit **UnRAR**
+- Findet alle `.ydr`-Dateien
+- Erstellt automatisch:
+  - `1_proplist.txt` (XML-Struktur)
+  - `2_propfav.txt` (PropModel-Liste)
+- Optionale Löschfunktion:
+  - Entfernt `.rar`, `.ydr`, `.png`, `.dds`, `.jpg`, `.jpeg`
+  - Löscht Ordner
+  - Behalte nur die beiden Ergebnis-Dateien
+- Ausgabe im Konsolenstil (Statusmeldungen)
 
+---
 
-## Nutzung
-1. Lege alle .rar-Dateien, die du entpacken möchtest, in den Ordner `propfiles`.
-2. Starte die Datei `unpackerlister.py` (Python muss installiert sein)
-3. Das Tool führt die Batch-Datei zum Entpacken aus, löscht die .rar-Dateien und erstellt eine Datei `proplist.txt` mit allen gefundenen `.ydr`-Dateien im richtigen Format.
+## 📂 Ordnerstruktur
 
-### Alternativ: Batch-Datei direkt nutzen
-Du kannst auch die Batch-Datei `unpack_rar.bat` im Ordner `propfiles` ausführen, um nur die .rar-Dateien zu entpacken.
+```text
+Menyoo-Prop-unpacker-main/
+│
+├── unpackerlister.py   # Hauptskript
+├── propfiles/          # .rar-Archive hier hineinlegen
+└── dist/               # (optional) fertige EXE nach Build mit PyInstaller
 
-## Weitergabe
-Um das Tool ohne Python zu nutzen, kannst du mit PyInstaller eine EXE erstellen:
+⚠️ Hinweis zu Antivirus-Erkennungen
 
-```
-pip install pyinstaller
-pyinstaller --onefile unpackerlister.py
-```
-Die EXE findest du im Ordner `dist`.
+Einige Antivirenprogramme stufen die EXE als „Dropper“ ein.
+Das liegt daran, dass das Tool Dateien entpackt und löscht.
+Es handelt sich dabei um False Positives.
 
-## Hinweise
-- WinRAR muss installiert und unter `C:\Program Files\WinRAR\WinRAR.exe` erreichbar sein falls es nicht dort installiert ist ändert einfach den pfad "C:\Program Files\WinRAR\" zu eurem.
-- Die .ydr-Dateien können in beliebigen Unterordnern von `propfiles` liegen.
-- Die generierte `proplist.txt` enthält alle Props im gewünschten XML-Format.
-- einzelne props findet er ebenfalls.
+Tipps zur Reduzierung:
+
+--noupx verwenden
+
+EXE digital signieren (falls möglich)
+
+oder alternativ Nuitka nutzen (statt PyInstaller)
