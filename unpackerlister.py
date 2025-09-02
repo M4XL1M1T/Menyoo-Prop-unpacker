@@ -19,7 +19,7 @@ def unpack_archives_and_generate_list():
 def run_and_process_files():
     base_path = unpack_archives_and_generate_list()
 
-    confirm_delete = input("Sollen entpackte RARs und bestimmte Dateien gelöscht werden? (j/n): ").lower() == 'j'
+    confirm_delete = input("Willst du die RAR-Datein Entpacken (j/n): ").lower() == 'j'
 
 
     for filename in os.listdir(base_path):
@@ -29,7 +29,7 @@ def run_and_process_files():
                 with rarfile.RarFile(rar_path) as rf:
                     rf.extractall(base_path)
                 if confirm_delete:
-                    os.remove(rar_path)  # RAR nach Entpacken löschen
+                    os.remove(rar_path) 
                     print(f"Entpackt und gelöscht: {filename}")
                 else:
                     print(f"Entpackt, aber nicht gelöscht: {filename}")
@@ -38,9 +38,18 @@ def run_and_process_files():
 
 
     ydr_files = []
+    props_dir = os.path.join(base_path, 'props')
+    os.makedirs(props_dir, exist_ok=True)
     for root, dirs, files in os.walk(base_path):
         for file in files:
             if file.lower().endswith('.ydr'):
+                src_path = os.path.join(root, file)
+                dst_path = os.path.join(props_dir, file)
+                try:
+                    shutil.move(src_path, dst_path)
+                    print(f"Verschoben: {file} -> props")
+                except Exception as e:
+                    print(f"Fehler beim Verschieben von {file}: {e}")
                 ydr_files.append(os.path.splitext(file)[0])
 
 
@@ -72,32 +81,19 @@ def run_and_process_files():
         for propname in ydr_files:
             fav_out.write(f'<PropModel modelName="{propname}" modelHash="" />\n')
 
- 
-    keep_files = {'1_proplist.txt', '2_propfav.txt'}
-    delete_extensions = {'.ydr', '.png', '.dds', '.jpg', '.jpeg'}
 
-    if confirm_delete:
-        for filename in os.listdir(base_path):
-            if filename in keep_files:
-                continue
-            file_path = os.path.join(base_path, filename)
-
-            if os.path.isfile(file_path):
-                _, ext = os.path.splitext(filename)
-                if ext.lower() in delete_extensions:
-                    try:
-                        os.remove(file_path)
-                        print(f"Gelöscht: {filename}")
-                    except Exception as e:
-                        print(f"Fehler beim Löschen von {filename}: {e}")
-            elif os.path.isdir(file_path):
+    confirm_delete_ydr = input("Sollen die verschobenen .ydr-Dateien im props-Ordner gelöscht werden? (j/n): ").lower() == 'j'
+    if confirm_delete_ydr:
+        for file in os.listdir(props_dir):
+            if file.lower().endswith('.ydr'):
+                file_path = os.path.join(props_dir, file)
                 try:
-                    shutil.rmtree(file_path)
-                    print(f"Ordner gelöscht: {filename}")
+                    os.remove(file_path)
+                    print(f"Gelöscht: {file}")
                 except Exception as e:
-                    print(f"Fehler beim Löschen des Ordners {filename}: {e}")
+                    print(f"Fehler beim Löschen von {file}: {e}")
     else:
-        print("Keine Dateien gelöscht (Bestätigung verweigert).")
+        print(".ydr-Dateien im props-Ordner wurden nicht gelöscht.")
 
 
 if __name__ == "__main__":
