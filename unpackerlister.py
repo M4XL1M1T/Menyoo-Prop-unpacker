@@ -20,7 +20,7 @@ def run_and_process_files():
     base_path = unpack_archives_and_generate_list()
 
     confirm_delete = input("Willst du die RAR-Datein Entpacken (j/n): ").lower() == 'j'
-
+    
 
     for filename in os.listdir(base_path):
         if filename.lower().endswith('.rar'):
@@ -81,7 +81,13 @@ def run_and_process_files():
         for propname in ydr_files:
             fav_out.write(f'<PropModel modelName="{propname}" modelHash="" />\n')
 
-
+    print(" ")
+    print(" ")
+    print("------------------------------------------------------")
+    print(f"Du kannst nun die .ydr-Dateien nach OIV verschieben.")
+    print("------------------------------------------------------")
+    print(" ")
+    print(" ")
     confirm_delete_ydr = input("Sollen die verschobenen .ydr-Dateien im props-Ordner gelöscht werden? (j/n): ").lower() == 'j'
     if confirm_delete_ydr:
         for file in os.listdir(props_dir):
