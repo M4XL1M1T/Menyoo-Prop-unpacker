@@ -1,4 +1,6 @@
 # 📦 Menyoo Prop Unpacker & Lister
+# https://www.gta5-mods.com/tools/menyoo-prop-unpack-helper
+
 
 Ein kleines Python-Tool, das `.rar`-Archive im Ordner **`propfiles`** automatisch entpackt, `.ydr`-Dateien auflistet und daraus zwei Dateien generiert:
 
