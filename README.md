@@ -1,7 +1,7 @@
 # 📦 Menyoo Prop Unpacker & Lister
 # https://www.gta5-mods.com/tools/menyoo-prop-unpack-helper
 
-A small Python tool that automatically extracts `.rar` archives, lists `.ydr` files, and generates two files from them:
+A small Python tool that automatically extracts `.rar, .zip` archives, lists `.ydr` files, and generates two files from them:
 
 - **def_props.ytyp.xml** → XML list of all props
 - **FavouriteProps.xml** → Favorites list of all props
