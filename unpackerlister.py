@@ -47,7 +47,6 @@ def run_and_process_files():
     props_dir = os.path.join(base_path, 'props')
     os.makedirs(props_dir, exist_ok=True)
     for root, dirs, files in os.walk(base_path):
-        # Skip processing files that are already in the props directory
         if os.path.abspath(root) == os.path.abspath(props_dir):
             continue
         for file in files:
@@ -55,21 +54,17 @@ def run_and_process_files():
                 src_path = os.path.join(root, file)
                 dst_path = os.path.join(props_dir, file)
                 propname = os.path.splitext(file)[0]
-                # Avoid adding the same prop name more than once
                 if propname in ydr_set:
                     print(f"Skipping duplicate prop name: {propname}")
                     try:
-                        # remove extra source file if it exists outside props to avoid clutter
                         if os.path.abspath(src_path) != os.path.abspath(dst_path) and os.path.exists(src_path):
                             os.remove(src_path)
                     except Exception:
                         pass
                     continue
                 try:
-                    # If source and destination are the same file, skip moving
                     if os.path.abspath(src_path) != os.path.abspath(dst_path):
                         if os.path.exists(dst_path):
-                            # Destination already exists — skip moving to avoid overwrite
                             print(f"Destination already exists for {file}; skipping move.")
                         else:
                             shutil.move(src_path, dst_path)
@@ -127,4 +122,5 @@ def run_and_process_files():
 
 
 if __name__ == "__main__":
+
     run_and_process_files()
